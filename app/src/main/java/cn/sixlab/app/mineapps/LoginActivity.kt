@@ -1,4 +1,4 @@
-package cn.sixlab.app.mineapps.activity
+package cn.sixlab.app.mineapps
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -6,6 +6,7 @@ import android.annotation.TargetApi
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.Context
 import android.content.CursorLoader
+import android.content.Intent
 import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
@@ -19,7 +20,6 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import cn.sixlab.app.mineapps.R
 import cn.sixlab.app.mineapps.util.HttpUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -152,6 +152,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             mAuthTask = UserLoginTask(usernameStr, passwordStr)
             mAuthTask!!.execute(null as Void?)
         }
+    }
+
+    private fun loginSuccess(){
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     //    private fun isEmailValid(email: String): Boolean {
@@ -302,7 +308,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
 
             if (success!!) {
-                finish()
+                loginSuccess()
             } else {
                 password.error = getString(R.string.error_incorrect_password)
                 password.requestFocus()

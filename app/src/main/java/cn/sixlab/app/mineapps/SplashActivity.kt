@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import cn.sixlab.app.mineapps.activity.LoginActivity
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {

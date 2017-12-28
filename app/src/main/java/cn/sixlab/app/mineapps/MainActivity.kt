@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import cn.sixlab.app.mineapps.activity.*
+import cn.sixlab.app.mineapps.activity.FilmActivity
+import cn.sixlab.app.mineapps.activity.FilmInfoActivity
+import cn.sixlab.app.mineapps.activity.ShowActivity
+import cn.sixlab.app.mineapps.activity.ShowInfoActivity
 import cn.sixlab.app.mineapps.ft.AppsFragment
 import cn.sixlab.app.mineapps.ft.HomeFragment
 import cn.sixlab.app.mineapps.ft.MineFragment
