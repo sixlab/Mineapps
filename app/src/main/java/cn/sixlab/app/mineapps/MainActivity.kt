@@ -87,25 +87,15 @@ class MainActivity : AppCompatActivity(),FragmentListener {
     }
 
     fun logout(v: View?) {
-        var intent:Intent? = null
-        when (v?.id) {
-            R.id.apps_film_add -> intent = Intent(this, FilmInfoActivity::class.java)
-            R.id.apps_show_add -> intent = Intent(this, ShowInfoActivity::class.java)
-            R.id.apps_film -> intent = Intent(this, FilmActivity::class.java)
-            R.id.apps_show -> intent = Intent(this, ShowActivity::class.java)
-        }
+        val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+        val editor = preferences.edit()
+        editor.remove("Authentication")
+        editor.remove("AuthenticationExp")
+        editor.commit()
 
-        if(null!=intent){
-            val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-            val editor = preferences.edit()
-            editor.remove("Authentication")
-            editor.remove("AuthenticationExp")
-            editor.commit()
-
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 //    private fun callFragment(position:Int){

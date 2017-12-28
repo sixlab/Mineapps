@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("sixlab", " onCreate login" )
         setContentView(R.layout.activity_login)
 
         // Set up the login form.
@@ -52,10 +51,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
 
         val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-        val authentication = preferences.getString("Authentication", null)
-        val exp = preferences.getLong("AuthenticationExp", 0)
+        val usernameVal = preferences.getString("username", null)
 
-        username.setText("${authentication}@${exp}")
+        username.setText(usernameVal)
 
         //        email_sign_in_button.setOnClickListener { attemptLogin() }
     }
@@ -104,11 +102,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * errors are presented and no actual login attempt is made.
      */
     fun attemptLogin(v: View?) {
-        Log.e("sixlab", " attemptLogin 1" )
         if (mAuthTask != null) {
             return
         }
-        Log.e("sixlab", " attemptLogin 2" )
 
         // Reset errors.
         username.error = null
@@ -130,12 +126,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(usernameStr)) {
-            Log.e("sixlab", " attemptLogin 3" )
             username.error = getString(R.string.error_field_required)
             focusView = username
             cancel = true
         }else if (TextUtils.isEmpty(passwordStr)){
-            Log.e("sixlab", " attemptLogin 4" )
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -148,12 +142,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         //        }
 
         if (cancel) {
-            Log.e("sixlab", " attemptLogin 5" )
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            Log.e("sixlab", " attemptLogin 6" )
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
@@ -263,7 +255,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     inner class UserLoginTask internal constructor(private val mUsername: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
-            Log.e("sixlab", " attemptLogin 7" )
             // TO DO: attempt authentication against a network service.
 
             val map:HashMap<String, String> = HashMap<String, String>()
@@ -286,11 +277,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
                 val editor = preferences.edit()
                 editor.putString("Authentication",token)
+                editor.putString("username",mUsername)
                 editor.putLong("AuthenticationExp",exp)
                 editor.commit()
+                return true
             }
-            Log.e("sixlab", " login 错误CODE-" + execute.code())
-            Log.e("sixlab", " login 错误MESSAGE-" + execute.message())
+            Log.e("sixlab", " login CODE-" + execute.code())
+            Log.e("sixlab", " login MESSAGE-" + execute.message())
 
             return false
 
@@ -305,7 +298,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
 
         override fun onPostExecute(success: Boolean?) {
-            Log.e("sixlab", " attemptLogin 8" )
             mAuthTask = null
             showProgress(false)
 
