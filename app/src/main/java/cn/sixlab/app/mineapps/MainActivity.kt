@@ -15,7 +15,6 @@ import cn.sixlab.app.mineapps.ft.AppsFragment
 import cn.sixlab.app.mineapps.ft.HomeFragment
 import cn.sixlab.app.mineapps.ft.MineFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 class MainActivity : AppCompatActivity(),FragmentListener {
@@ -37,16 +36,6 @@ class MainActivity : AppCompatActivity(),FragmentListener {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         //BottomNavigationViewHelper.formatDate(navigation)
         initView(navigation.menu.getItem(1))
-
-        //判断是否登录，如果未登录，先去登录，然后再回来初始化
-        val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-        val authentication = preferences.getString("Authentication", null)
-        val exp = preferences.getLong("AuthenticationExp", 0)
-        val now = Date().time - 30*60*1000;
-        if (authentication == null || exp < now) {
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     var context: Context? = null
@@ -94,6 +83,28 @@ class MainActivity : AppCompatActivity(),FragmentListener {
 
         if(null!=intent){
             startActivity(intent)
+        }
+    }
+
+    fun logout(v: View?) {
+        var intent:Intent? = null
+        when (v?.id) {
+            R.id.apps_film_add -> intent = Intent(this, FilmInfoActivity::class.java)
+            R.id.apps_show_add -> intent = Intent(this, ShowInfoActivity::class.java)
+            R.id.apps_film -> intent = Intent(this, FilmActivity::class.java)
+            R.id.apps_show -> intent = Intent(this, ShowActivity::class.java)
+        }
+
+        if(null!=intent){
+            val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+            val editor = preferences.edit()
+            editor.remove("Authentication")
+            editor.remove("AuthenticationExp")
+            editor.commit()
+
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
