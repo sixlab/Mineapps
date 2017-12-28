@@ -3,10 +3,8 @@ package cn.sixlab.app.mineapps.activity
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
-import android.content.pm.PackageManager
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
+import android.content.Context
 import android.content.CursorLoader
 import android.content.Loader
 import android.database.Cursor
@@ -15,16 +13,18 @@ import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
 import android.widget.TextView
-
-import java.util.ArrayList
-import android.Manifest.permission.READ_CONTACTS
-
+import cn.sixlab.app.mineapps.R
+import cn.sixlab.app.mineapps.util.HttpUtil
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
+import kotlin.collections.HashMap
+
 
 /**
  * A login screen that offers login via email/password.
@@ -37,56 +37,65 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.e("sixlab", " onCreate login" )
         setContentView(R.layout.activity_login)
+
         // Set up the login form.
-        populateAutoComplete()
+        //        populateAutoComplete()
+
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin()
+                attemptLogin(null)
                 return@OnEditorActionListener true
             }
             false
         })
 
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+        val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+        val authentication = preferences.getString("Authentication", null)
+        val exp = preferences.getLong("AuthenticationExp", 0)
+
+        username.setText("${authentication}@${exp}")
+
+        //        email_sign_in_button.setOnClickListener { attemptLogin() }
     }
 
-    private fun populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return
-        }
-
-        loaderManager.initLoader(0, null, this)
-    }
-
-    private fun mayRequestContacts(): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok,
-                            { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
-        } else {
-            requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
-        }
-        return false
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-                                            grantResults: IntArray) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete()
-            }
-        }
-    }
+    //    private fun populateAutoComplete() {
+    //        if (!mayRequestContacts()) {
+    //            return
+    //        }
+    //
+    //        loaderManager.initLoader(0, null, this)
+    //    }
+    //
+    //    private fun mayRequestContacts(): Boolean {
+    //        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+    //            return true
+    //        }
+    //        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+    //            return true
+    //        }
+    //        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+    //            Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+    //                    .setAction(android.R.string.ok,
+    //                            { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
+    //        } else {
+    //            requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
+    //        }
+    //        return false
+    //    }
+    //
+    //    /**
+    //     * Callback received when a permissions request has been completed.
+    //     */
+    //    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+    //                                            grantResults: IntArray) {
+    //        if (requestCode == REQUEST_READ_CONTACTS) {
+    //            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    //                populateAutoComplete()
+    //            }
+    //        }
+    //    }
 
 
     /**
@@ -94,62 +103,74 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private fun attemptLogin() {
+    fun attemptLogin(v: View?) {
+        Log.e("sixlab", " attemptLogin 1" )
         if (mAuthTask != null) {
             return
         }
+        Log.e("sixlab", " attemptLogin 2" )
 
         // Reset errors.
-        email.error = null
+        username.error = null
         password.error = null
 
         // Store values at the time of the login attempt.
-        val emailStr = email.text.toString()
+        val usernameStr = username.text.toString()
         val passwordStr = password.text.toString()
 
         var cancel = false
         var focusView: View? = null
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        //        // Check for a valid password, if the user entered one.
+        //        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        //            password.error = getString(R.string.error_invalid_password)
+        //            focusView = password
+        //            cancel = true
+        //        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(usernameStr)) {
+            Log.e("sixlab", " attemptLogin 3" )
+            username.error = getString(R.string.error_field_required)
+            focusView = username
+            cancel = true
+        }else if (TextUtils.isEmpty(passwordStr)){
+            Log.e("sixlab", " attemptLogin 4" )
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(emailStr)) {
-            email.error = getString(R.string.error_field_required)
-            focusView = email
-            cancel = true
-        } else if (!isEmailValid(emailStr)) {
-            email.error = getString(R.string.error_invalid_email)
-            focusView = email
-            cancel = true
-        }
+        //        else if (!isEmailValid(emailStr)) {
+        //            email.error = getString(R.string.error_invalid_email)
+        //            focusView = email
+        //            cancel = true
+        //        }
 
         if (cancel) {
+            Log.e("sixlab", " attemptLogin 5" )
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView?.requestFocus()
         } else {
+            Log.e("sixlab", " attemptLogin 6" )
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
+            mAuthTask = UserLoginTask(usernameStr, passwordStr)
             mAuthTask!!.execute(null as Void?)
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
-    }
+    //    private fun isEmailValid(email: String): Boolean {
+    //        //TODO: Replace this with your own logic
+    //        return email.contains("@")
+    //    }
+    //
+    //    private fun isPasswordValid(password: String): Boolean {
+    //        //TODO: Replace this with your own logic
+    //        return password.length > 4
+    //    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -212,20 +233,20 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             cursor.moveToNext()
         }
 
-        addEmailsToAutoComplete(emails)
+        //        addEmailsToAutoComplete(emails)
     }
 
     override fun onLoaderReset(cursorLoader: Loader<Cursor>) {
 
     }
 
-    private fun addEmailsToAutoComplete(emailAddressCollection: List<String>) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        val adapter = ArrayAdapter(this@LoginActivity,
-                android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
-
-        email.setAdapter(adapter)
-    }
+    //    private fun addEmailsToAutoComplete(emailAddressCollection: List<String>) {
+    //        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+    //        val adapter = ArrayAdapter(this@LoginActivity,
+    //                android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
+    //
+    //        username.setAdapter(adapter)
+    //    }
 
     object ProfileQuery {
         val PROJECTION = arrayOf(
@@ -239,29 +260,52 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
+    inner class UserLoginTask internal constructor(private val mUsername: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
-            // TODO: attempt authentication against a network service.
+            Log.e("sixlab", " attemptLogin 7" )
+            // TO DO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000)
-            } catch (e: InterruptedException) {
-                return false
+            val map:HashMap<String, String> = HashMap<String, String>()
+            map.put("username", mUsername)
+            map.put("password", mPassword)
+            val body = HttpUtil.buildData(map)
+
+            val route = HttpUtil.buildRoute(false)
+            val call = route.login(body)
+
+            val execute = call.execute()
+
+            if (execute.isSuccessful) {
+                val respBody = execute.body()
+                Log.e("sixlab", " login 成功 -" + respBody)
+                val respData:Map<String, Any> = respBody?.get("data") as Map<String, Any>
+                val token:String = respData["token"] as String
+                val exp:Long = respData["expiration"] as Long
+
+                val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
+                val editor = preferences.edit()
+                editor.putString("Authentication",token)
+                editor.putLong("AuthenticationExp",exp)
+                editor.commit()
             }
+            Log.e("sixlab", " login 错误CODE-" + execute.code())
+            Log.e("sixlab", " login 错误MESSAGE-" + execute.message())
 
-            return DUMMY_CREDENTIALS
-                    .map { it.split(":") }
-                    .firstOrNull { it[0] == mEmail }
-                    ?.let {
-                        // Account exists, return true if the password matches.
-                        it[1] == mPassword
-                    }
-                    ?: true
+            return false
+
+//            return DUMMY_CREDENTIALS
+//                    .map { it.split(":") }
+//                    .firstOrNull { it[0] == mEmail }
+//                    ?.let {
+//                        // Account exists, return true if the password matches.
+//                        it[1] == mPassword
+//                    }
+//                    ?: true
         }
 
         override fun onPostExecute(success: Boolean?) {
+            Log.e("sixlab", " attemptLogin 8" )
             mAuthTask = null
             showProgress(false)
 
@@ -274,22 +318,23 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
 
         override fun onCancelled() {
+            Log.e("sixlab", " attemptLogin 9" )
             mAuthTask = null
             showProgress(false)
         }
     }
 
-    companion object {
-
-        /**
-         * Id to identity READ_CONTACTS permission request.
-         */
-        private val REQUEST_READ_CONTACTS = 0
-
-        /**
-         * A dummy authentication store containing known user names and passwords.
-         * TODO: remove after connecting to a real authentication system.
-         */
-        private val DUMMY_CREDENTIALS = arrayOf("foo@example.com:hello", "bar@example.com:world")
-    }
+    //    companion object {
+    //
+    //        /**
+    //         * Id to identity READ_CONTACTS permission request.
+    //         */
+    //        private val REQUEST_READ_CONTACTS = 0
+    //
+    //        /**
+    //         * A dummy authentication store containing known user names and passwords.
+    //         * TODO: remove after connecting to a real authentication system.
+    //         */
+    //        private val DUMMY_CREDENTIALS = arrayOf("foo@example.com:hello", "bar@example.com:world")
+    //    }
 }
