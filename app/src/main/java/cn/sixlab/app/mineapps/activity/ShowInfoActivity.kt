@@ -3,6 +3,7 @@ package cn.sixlab.app.mineapps.activity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import cn.sixlab.app.mineapps.R
 
 import kotlinx.android.synthetic.main.activity_show_info.*
@@ -29,4 +30,7 @@ class ShowInfoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    fun submitShow(v: View?){
+
+    }
 }
