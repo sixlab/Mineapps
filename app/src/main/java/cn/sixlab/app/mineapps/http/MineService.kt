@@ -20,9 +20,18 @@ interface MineService {
     //    @POST("api/movie/search")
     //    Call<ResponseBody> queryMovie(@Query("keyword")String keyword);
 
+    //登录
     @Headers("Content-Type: application/json", "Accept: application/json")
     @POST("login")
     fun login(@Body body: RequestBody): Call<Map<Any, Any>>
+
+    //添加电影
+    @POST("movie/film")
+    fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>
+
+
+
+
 
     @POST("api/movie/search")
     fun queryMovie(@Query("keyword") keyword: String): Call<Map<Any, Any>>

@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(),FragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("sixlab", " onCreate main" )
         setContentView(R.layout.activity_main)
         context = this
 

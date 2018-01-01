@@ -268,7 +268,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             map.put("password", mPassword)
             val body = HttpUtil.buildData(map)
 
-            val route = HttpUtil.buildRoute(false)
+            val route = HttpUtil.buildRoute()
             val call = route.login(body)
 
             val execute = call.execute()

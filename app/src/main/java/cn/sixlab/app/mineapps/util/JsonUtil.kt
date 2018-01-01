@@ -12,7 +12,7 @@ object JsonUtil{
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    fun toJson(obj: Any): String? {
+    fun toJson(obj: Any?): String? {
         try {
             return mapper.writeValueAsString(obj)
         } catch (e: Exception) {

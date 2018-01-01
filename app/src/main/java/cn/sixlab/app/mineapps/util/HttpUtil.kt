@@ -1,5 +1,6 @@
 package cn.sixlab.app.mineapps.util
 
+import android.content.Context
 import cn.sixlab.app.mineapps.http.MineService
 import okhttp3.Interceptor
 import okhttp3.MediaType
@@ -15,15 +16,23 @@ import retrofit2.converter.jackson.JacksonConverterFactory
  */
 object HttpUtil {
     var mine = "https://sixlab.cn/"
+//    var mine = "http://192.168.1.132:8800/"
     var douban = "https://api.douban.com/"
 
-    fun buildRoute(auth:Boolean): MineService {
+    fun buildRoute(): MineService {
         val builder = Retrofit.Builder()
         builder.baseUrl(HttpUtil.mine)
         builder.addConverterFactory(JacksonConverterFactory.create())
-        if(auth){
-            builder.client(apiToken())
-        }
+        val retrofit = builder.build()
+
+        return retrofit.create(MineService::class.java)
+    }
+
+    fun buildRoute(context: Context): MineService {
+        val builder = Retrofit.Builder()
+        builder.baseUrl(HttpUtil.mine)
+        builder.addConverterFactory(JacksonConverterFactory.create())
+        builder.client(apiToken(context))
         val retrofit = builder.build()
 
         return retrofit.create(MineService::class.java)
@@ -34,12 +43,15 @@ object HttpUtil {
                 JsonUtil.toJson(data))
     }
 
-    private fun apiToken(): OkHttpClient {
+    private fun apiToken(context:Context): OkHttpClient {
         val interceptor = Interceptor { chain ->
             val original = chain.request()
 
+            val preferences = context.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+            val authentication = preferences.getString("Authentication", null)
+
             val request = original.newBuilder()
-                    .header("Authorization", "no-cache")
+                    .header("Authorization", authentication)
                     .method(original.method(), original.body())
                     .build()
 
