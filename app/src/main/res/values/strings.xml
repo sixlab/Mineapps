@@ -53,4 +53,6 @@
     <string name="prompt_show_episode">集</string>
 
     <string name="icons">&#x3605; &#x35ad; &#x35ae; &#x35af;</string>
+    <string name="ok">确定</string>
+    <string name="cancle">取消</string>
 </resources>

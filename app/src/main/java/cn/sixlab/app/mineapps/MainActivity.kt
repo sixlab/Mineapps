@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2017 Sixlab. All rights reserved.
+ *
+ * License information see the LICENSE file in the project's root directory.
+ *
+ * For more information, please see
+ * https://sixlab.cn/
+ *
+ * @time: 2017
+ * @author: Patrick <root@sixlab.cn>
+ */
 package cn.sixlab.app.mineapps
 
 import android.app.Fragment
@@ -7,7 +18,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import cn.sixlab.app.mineapps.activity.FilmActivity
