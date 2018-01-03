@@ -8,14 +8,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/film_name"
+        android:id="@+id/name_view"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="sample"/>
 
     <TextView
-        android:id="@+id/film_intro"
+        android:id="@+id/intro_view"
         android:textSize="12sp"
         android:textColor="@color/colorGray9"
         android:layout_width="match_parent"

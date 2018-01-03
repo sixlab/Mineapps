@@ -58,7 +58,7 @@ class FilmActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if(TextUtils.isEmpty(newText)){
                     searchRecentlyFilm()
-                }else if ("null".equals(newText)){
+                }else if ("null" == newText){
                     searchDb()
                 }else{
                     searchFilm(newText)
@@ -134,8 +134,8 @@ class FilmActivity : AppCompatActivity() {
                 .forEach {
                     val view = inflater.inflate(R.layout.snippet_film_list, null) as LinearLayout
 
-                    val nameView = view.film_name
-                    val introView = view.film_intro
+                    val nameView = view.name_view
+                    val introView = view.intro_view
 
                     count++
                     val movieName = it["movieName"]

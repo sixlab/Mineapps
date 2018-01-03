@@ -63,6 +63,7 @@
     <string name="cancle">取消</string>
     <string name="action_clear">清空</string>
     <string name="action_reset">重置</string>
+    <string name="prompt_number">请输入数字</string>
 
 
 </resources>

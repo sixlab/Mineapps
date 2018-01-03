@@ -1,0 +1,47 @@
+<LinearLayout
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/bg_list_bottom_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/name_view"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sample"/>
+
+    <Button
+        android:id="@+id/change_status"
+        android:text="停看"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:background="@drawable/bg_circle_btn"
+        android:layout_width="50dp"
+        android:layout_height="30dp"/>
+
+    <Button
+        android:id="@+id/add_s"
+        android:text="S 99"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:background="@drawable/bg_circle_btn"
+        android:layout_width="50dp"
+        android:layout_height="30dp"/>
+
+    <Button
+        android:id="@+id/add_e"
+        android:text="S 99"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:background="@drawable/bg_circle_btn"
+        android:layout_width="50dp"
+        android:layout_height="30dp"/>
+
+</LinearLayout>

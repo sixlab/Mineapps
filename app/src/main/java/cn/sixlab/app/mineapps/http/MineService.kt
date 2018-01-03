@@ -25,16 +25,16 @@ interface MineService {
     //    @POST("api/movie/search")
     //    Call<ResponseBody> queryMovie(@Query("keyword")String keyword);
 
-    //登录
+    // 登录
     @Headers("Content-Type: application/json", "Accept: application/json")
     @POST("login")
     fun login(@Body body: RequestBody): Call<Map<Any, Any>>
 
-    //添加电影
+    // 添加电影
     @POST("movie/film")
     fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>
 
-    //添加电影
+    // 修改电影
     @PUT("movie/film/{id}")
     fun modifyFilm(@Body body: RequestBody,@Path("id") id: Int): Call<Map<Any, Any>>
 
@@ -46,11 +46,25 @@ interface MineService {
     @GET("movie/film")
     fun searchFilms(@Query("keyword") keyword: String): Call<Map<Any, Any>>
 
-    // 搜索电影
+    // 搜索未索引电影
     @GET("movie/film/db")
     fun searchDb(): Call<Map<Any, Any>>
 
+    // 搜索剧集
+    @GET("movie/show")
+    fun searchShows(@Query("keyword") keyword: String,@Query("showStatus") showStatus: String): Call<Map<Any, Any>>
 
+    // 修改电影-season
+    @PUT("movie/show/{id}/season/{season}")
+    fun updateSeason(@Path("id") id: Int,@Path("season") season: Int): Call<Map<Any, Any>>
+
+    // 修改电影-episode
+    @PUT("movie/show/{id}/episode/{episode}")
+    fun updateEpisode(@Path("id") id: Int,@Path("episode") episode: Int): Call<Map<Any, Any>>
+
+    // 修改电影-status
+    @PUT("movie/show/{id}/viewStatus/{status}")
+    fun updateStatus(@Path("id") id: Int,@Path("status") status: String): Call<Map<Any, Any>>
 
 
 
