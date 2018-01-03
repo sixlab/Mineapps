@@ -54,14 +54,15 @@ class FilmInfoActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             searchDb()
         }
 
         initInput(null)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    fun searchDb(){
+    private fun searchDb(){
         val filmName = text_film_name.text
 
         if(filmName.toString() == searchText){
@@ -85,7 +86,7 @@ class FilmInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun showChoice(){
+    private fun showChoice(){
         if(null != dbList){
             var arr = arrayOfNulls<String>(dbList!!.size)
 
@@ -304,7 +305,6 @@ class FilmInfoActivity : AppCompatActivity() {
                 ToastMsg.show(this@FilmInfoActivity,t)
             }
         })
-
     }
 
     private fun submitSuccess(response: Response<Map<Any, Any>>?) {

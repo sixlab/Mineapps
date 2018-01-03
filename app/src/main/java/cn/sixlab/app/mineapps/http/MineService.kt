@@ -54,51 +54,19 @@ interface MineService {
     @GET("movie/show")
     fun searchShows(@Query("keyword") keyword: String,@Query("showStatus") showStatus: String): Call<Map<Any, Any>>
 
-    // 修改电影-season
+    // 修改剧集-season
     @PUT("movie/show/{id}/season/{season}")
     fun updateSeason(@Path("id") id: Int,@Path("season") season: Int): Call<Map<Any, Any>>
 
-    // 修改电影-episode
+    // 修改剧集-episode
     @PUT("movie/show/{id}/episode/{episode}")
     fun updateEpisode(@Path("id") id: Int,@Path("episode") episode: Int): Call<Map<Any, Any>>
 
-    // 修改电影-status
+    // 修改剧集-status
     @PUT("movie/show/{id}/viewStatus/{status}")
     fun updateStatus(@Path("id") id: Int,@Path("status") status: String): Call<Map<Any, Any>>
 
-
-
-    @POST("api/movie/search")
-    fun queryMovie(@Query("keyword") keyword: String): Call<Map<Any, Any>>
-
-    @POST("api/movie/add")
-    fun addMovie(@Query("movieName") movieName: String, @Query("produceYear") produceYear: String, @Query("director") director: String, @Query("remark") remark: String, @Query("viewDate") viewDate: String, @Query("doubanScore") doubanScore: Double, @Query("doubanKey") doubanKey: String): Call<Map<Any, Any>>
-
-    @POST("api/show/search")
-    fun queryShow(@Query("keyword") keyword: String): Call<Map<Any, Any>>
-
-    @POST("api/show/watching")
-    fun queryWatching(@Query("keyword") keyword: String): Call<Map<Any, Any>>
-
-    @POST("api/show/watched")
-    fun queryWatched(@Query("keyword") keyword: String): Call<Map<Any, Any>>
-
-    @POST("api/show/season/add")
-    fun addSeason(@Query("id") id: Int): Call<Map<Any, Any>>
-
-    @POST("api/show/episode/add")
-    fun addEpisode(@Query("id") id: Int): Call<Map<Any, Any>>
-
-    @POST("api/show/end")
-    fun endShow(@Query("id") id: Int): Call<Map<Any, Any>>
-
-    @POST("api/show/finish")
-    fun finishShow(@Query("id") id: Int): Call<Map<Any, Any>>
-
-    @POST("api/show/view/status")
-    fun changeViewStatus(@Query("id") id: Int, @Query("status") status: String): Call<Map<Any, Any>>
-
-    @POST("api/show/add")
-    fun addShow(@Query("showName") showName: String, @Query("showSeason") showSeason: Int, @Query("showEpisode") showEpisode: Int, @Query("beginDate") beginDate: String, @Query("remark") remark: String, @Query("tv") tv: String, @Query("doubanKey") doubanKey: String): Call<Map<Any, Any>>
-
+    // 添加剧集
+    @POST("movie/film")
+    fun addShow(@Body body: RequestBody): Call<Map<Any, Any>>
 }

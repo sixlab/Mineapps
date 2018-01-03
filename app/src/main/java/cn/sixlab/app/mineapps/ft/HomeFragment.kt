@@ -19,6 +19,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.sixlab.app.mineapps.R
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -46,7 +48,31 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        view.btn.setOnClickListener {
+            init(view)
+        }
+
+        init(view)
+
+        return view
+    }
+
+    private fun init(view: View) {
+        var hour = Calendar.getInstance().get(Calendar.HOUR)
+        var minute = Calendar.getInstance().get(Calendar.MINUTE)
+
+        var text = ""
+        if(hour>=7){
+            hour = (24-hour-1)+7
+        }else{
+            hour = 7-hour-1
+        }
+
+        minute = 60 -minute
+        text = "$hour 小时 $minute 分"
+        view.tv.setText(text)
     }
 
     // TODO: Rename method, update argument and hook method into UI event

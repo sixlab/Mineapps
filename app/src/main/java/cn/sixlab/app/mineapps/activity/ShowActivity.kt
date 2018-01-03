@@ -14,7 +14,6 @@ package cn.sixlab.app.mineapps.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -23,7 +22,6 @@ import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import cn.sixlab.app.mineapps.R
 import cn.sixlab.app.mineapps.util.HttpUtil
-import cn.sixlab.app.mineapps.util.JsonUtil
 import cn.sixlab.app.mineapps.util.MineCallback
 import cn.sixlab.app.mineapps.util.ToastMsg
 import kotlinx.android.synthetic.main.activity_show.*
@@ -46,10 +44,6 @@ class ShowActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-
             var intent = Intent(this, ShowInfoActivity::class.java)
             intent.putExtra("showInfo","showInfo")
             startActivity(intent)
@@ -149,13 +143,12 @@ class ShowActivity : AppCompatActivity() {
 
                     view.add_e.text = String.format("E %02d",showEpisode)
 
-
-                    var item = it
-                    view.setOnClickListener {
-                        var intent = Intent(this, ShowInfoActivity::class.java)
-                        intent.putExtra("showInfo", JsonUtil.toJson(item));
-                        startActivity(intent)
-                    }
+                    //                    var item = it
+                    //                    view.setOnClickListener {
+                    //                        var intent = Intent(this, ShowInfoActivity::class.java)
+                    //                        intent.putExtra("showInfo", JsonUtil.toJson(item));
+                    //                        startActivity(intent)
+                    //                    }
 
                     view.add_s.setOnClickListener {
                         promptDialog("请输入进度：季",showSeason+1, object : MineCallback<String> {
