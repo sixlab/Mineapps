@@ -1,0 +1,25 @@
+<LinearLayout
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/bg_list_bottom_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/film_name"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sample"/>
+
+    <TextView
+        android:id="@+id/film_intro"
+        android:textSize="12sp"
+        android:textColor="@color/colorGray9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sample"/>
+
+</LinearLayout>

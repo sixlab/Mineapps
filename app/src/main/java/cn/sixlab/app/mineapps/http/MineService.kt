@@ -13,10 +13,7 @@ package cn.sixlab.app.mineapps.http
 
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MineService {
 
@@ -36,6 +33,22 @@ interface MineService {
     //添加电影
     @POST("movie/film")
     fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>
+
+    //添加电影
+    @PUT("movie/film/{id}")
+    fun modifyFilm(@Body body: RequestBody,@Path("id") id: Int): Call<Map<Any, Any>>
+
+    // 最近的电影
+    @GET("movie/film/recent/{num}")
+    fun recentFilms(@Path("num") num: Int): Call<Map<Any, Any>>
+
+    // 搜索电影
+    @GET("movie/film")
+    fun searchFilms(@Query("keyword") keyword: String): Call<Map<Any, Any>>
+
+    // 搜索电影
+    @GET("movie/film/db")
+    fun searchDb(): Call<Map<Any, Any>>
 
 
 

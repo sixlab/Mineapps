@@ -12,6 +12,7 @@
 package cn.sixlab.app.mineapps.util
 
 import android.content.Context
+import cn.sixlab.app.mineapps.http.DbService
 import cn.sixlab.app.mineapps.http.MineService
 import okhttp3.Interceptor
 import okhttp3.MediaType
@@ -42,6 +43,15 @@ object HttpUtil {
         val retrofit = builder.build()
 
         return retrofit.create(MineService::class.java)
+    }
+
+    fun buildDbRoute(): DbService {
+        val builder = Retrofit.Builder()
+        builder.baseUrl(HttpUtil.douban)
+        builder.addConverterFactory(JacksonConverterFactory.create())
+        val retrofit = builder.build()
+
+        return retrofit.create(DbService::class.java)
     }
 
     fun buildData(data:Any): RequestBody {

@@ -13,25 +13,45 @@
                 tools:context="cn.sixlab.app.mineapps.activity.FilmInfoActivity"
                 tools:showIn="@layout/activity_film_info">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/panelBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/film_info_clear"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin_2"
+            android:background="@color/colorPrimary"
+            android:text="@string/action_reset"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:onClick="initInput"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/film_info_submit"
             style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin_2"
             android:background="@color/colorPrimary"
             android:text="@string/action_submit"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             android:onClick="submitFilm"
             android:textStyle="bold"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

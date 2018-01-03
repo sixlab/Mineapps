@@ -19,8 +19,8 @@ import retrofit2.http.Query
 interface DbService {
 
     @GET("v2/movie/search")
-    fun queryMovie(@Query("q") q: CharSequence): Call<Map<*, *>>
+    fun queryMovie(@Query("q") q: CharSequence): Call<Map<Any, Any>>
 
     @GET("v2/movie/subject/{subject}")
-    fun selectMovie(@Path("subject") subject: String): Call<Map<*, *>>
+    fun selectMovie(@Path("subject") subject: String): Call<Map<Any, Any>>
 }
