@@ -67,6 +67,6 @@ interface MineService {
     fun updateStatus(@Path("id") id: Int,@Path("status") status: String): Call<Map<Any, Any>>
 
     // 添加剧集
-    @POST("movie/film")
+    @POST("movie/show")
     fun addShow(@Body body: RequestBody): Call<Map<Any, Any>>
 }

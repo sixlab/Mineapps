@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--<color name="colorPrimary">#2685F0</color>-->
-    <!--<color name="colorPrimary">#41AFF6</color>-->
-    <color name="colorPrimaryDark">#4780FF</color>
+    <color name="colorPrimary">#41AFF6</color>
+    <color name="colorPrimaryDark">#189df5</color>
     <color name="colorAccent">#48b463</color>
     <color name="colorGrayE">#EEEEEE</color>
     <color name="colorGrayC">#CCCCCC</color>
@@ -10,7 +10,7 @@
     <color name="colorGray6">#666666</color>
     <color name="colorWhite">#FFFFFF</color>
 
-    <color name="colorPrimary">#2560f9</color>
+    <color name="colorMdBlue">#2560f9</color>
     <color name="colorMdGreen">#68C98A</color>
     <color name="colorMdYellow">#fcb310</color>
     <color name="colorMdRed">#df422a</color>
