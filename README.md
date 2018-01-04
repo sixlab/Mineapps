@@ -2,7 +2,9 @@
 
 ![image](https://img.shields.io/travis/PatrickRoot/Mineapps.svg)
 
-由于是我自己使用的 app，配合我的网站后台 [MinesiteX](https://github.com/PatrickRoot/MinesiteX) 才能使用，因为有自己的数据原因，暂时不开放体验，等我把自己想要的功能开发差不多了，再调整一下伪造数据，开放体验。
+我自己使用的 app，配合我的网站后台 [MinesiteX](https://github.com/PatrickRoot/MinesiteX) 才能使用。
+
+因为有自己数据的原因，暂不开放体验，等把自己想要的功能开发差不多了，调整下 Mock 数据，再开放体验。
 
 -  原生 Android 项目
 - Android 8.0
