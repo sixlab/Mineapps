@@ -1,6 +1,6 @@
 # Mineapps|我的app
 
-![image](https://img.shields.io/travis/PatrickRoot/Mineapps.svg)
+![image](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
 我自己使用的 app，配合我的网站后台 [MinesiteX](https://github.com/PatrickRoot/MinesiteX) 才能使用。
 
