@@ -62,9 +62,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
 
         val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-        val usernameVal = preferences.getString("username", null)
+        val usernameVal = preferences.getString("username", "")
+        val passwordVal = preferences.getString("password", "")
 
         username.setText(usernameVal)
+        password.setText(passwordVal)
 
         //        email_sign_in_button.setOnClickListener { attemptLogin() }
     }
@@ -294,7 +296,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
                 val editor = preferences.edit()
                 editor.putString("Authentication",token)
-                editor.putString("username",mUsername)
+                editor.putString("username", mUsername)
+                editor.putString("password", mPassword)
                 editor.putLong("AuthenticationExp",exp)
                 editor.commit()
                 return true

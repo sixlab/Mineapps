@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(),FragmentListener {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         //BottomNavigationViewHelper.formatDate(navigation)
         initView(navigation.menu.getItem(1))
+        navigation.selectedItemId = navigation.menu.getItem(1).itemId
     }
 
     var context: Context? = null
