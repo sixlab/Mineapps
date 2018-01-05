@@ -51,16 +51,16 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         view.btn.setOnClickListener {
-            init(view)
+            initView(view)
         }
 
-        init(view)
+        initView(view)
 
         return view
     }
 
-    private fun init(view: View) {
-        var hour = Calendar.getInstance().get(Calendar.HOUR)
+    private fun initView(view: View) {
+        var hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         var minute = Calendar.getInstance().get(Calendar.MINUTE)
 
         var text = ""

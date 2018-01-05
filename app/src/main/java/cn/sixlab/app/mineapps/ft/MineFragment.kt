@@ -13,11 +13,13 @@ package cn.sixlab.app.mineapps.ft
 
 import android.app.Fragment
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import cn.sixlab.app.mineapps.LoginActivity
 import cn.sixlab.app.mineapps.R
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 
@@ -49,16 +51,30 @@ class MineFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_mine, container, false)
 
-        val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+        initView(view)
+
+        return view
+    }
+
+    private fun initView(view: View) {
+
+        val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
         val authentication = preferences.getString("Authentication", null)
         val exp = preferences.getLong("AuthenticationExp", 0)
 
-//        val text:TextView = view.findViewById(R.id.text)
-//        text.setText("${authentication}@${exp}")
-//
-        view.text.setText("${authentication}@${exp}")
+        view.text.text = "$authentication@$exp"
 
-        return view
+        view.button.setOnClickListener {
+            val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
+            val editor = preferences.edit()
+            editor.remove("Authentication")
+            editor.remove("AuthenticationExp")
+            editor.commit()
+
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            activity.finish()
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

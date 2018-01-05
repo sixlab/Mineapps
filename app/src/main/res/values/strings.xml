@@ -65,5 +65,8 @@
     <string name="action_reset">重置</string>
     <string name="prompt_number">请输入数字</string>
 
+    <string name="head_apps_add">添加记录新数据</string>
+    <string name="head_apps_list">查询记录的数据</string>
+
 
 </resources>

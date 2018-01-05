@@ -13,12 +13,18 @@ package cn.sixlab.app.mineapps.ft
 
 import android.app.Fragment
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.sixlab.app.mineapps.R
+import cn.sixlab.app.mineapps.activity.FilmActivity
+import cn.sixlab.app.mineapps.activity.FilmInfoActivity
+import cn.sixlab.app.mineapps.activity.ShowActivity
+import cn.sixlab.app.mineapps.activity.ShowInfoActivity
+import kotlinx.android.synthetic.main.fragment_apps.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -46,7 +52,16 @@ class AppsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_apps, container, false)
+        val view = inflater.inflate(R.layout.fragment_apps, container, false)
+        initView(view)
+        return view
+    }
+
+    private fun initView(view: View) {
+        view.apps_film_add.setOnClickListener { startActivity(Intent(activity, FilmInfoActivity::class.java)) }
+        view.apps_show_add.setOnClickListener { startActivity(Intent(activity, ShowInfoActivity::class.java)) }
+        view.apps_film.setOnClickListener     { startActivity(Intent(activity, FilmActivity::class.java)) }
+        view.apps_show.setOnClickListener     { startActivity(Intent(activity, ShowActivity::class.java)) }
     }
 
     // TO DO: Rename method, update argument and hook method into UI event

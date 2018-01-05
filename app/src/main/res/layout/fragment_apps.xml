@@ -1,167 +1,201 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/colorGrayE"
-             tools:context="cn.sixlab.app.mineapps.ft.AppsFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayF7"
+            tools:context="cn.sixlab.app.mineapps.ft.AppsFragment">
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:minHeight="@dimen/line_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/apps_film_add"
-                android:onClick="itemClick"
-                android:padding="5dp"
-                android:background="@drawable/bg_list_bottom_line"
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/line_margin"
+                android:layout_marginBottom="@dimen/line_margin"
+                android:layout_marginLeft="@dimen/head_margin_left"
+                android:textSize="@dimen/line_head"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="@string/head_apps_add"/>
 
-                <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_video_call_black_24dp"/>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
+        <LinearLayout
+            android:id="@+id/apps_film_add"
+            android:padding="@dimen/line_margin"
+            android:background="@drawable/bg_list_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/line_icon"
+                android:layout_height="@dimen/line_icon"
+                android:background="@drawable/bg_line_icon"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_video_call_black_24dp"
+                android:contentDescription="@string/apps_film_add"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/line_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:textSize="@dimen/line_title"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:text="@string/apps_film_add"/>
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_film_add"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_film_add_info"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/apps_show_add"
-                android:onClick="itemClick"
-                android:padding="5dp"
-                android:background="@drawable/bg_list_bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_add_to_queue_black_24dp"/>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
+                <TextView
+                    android:textSize="@dimen/line_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_show_add"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_show_add_info"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:minHeight="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/apps_film"
-                android:onClick="itemClick"
-                android:padding="5dp"
-                android:background="@drawable/bg_list_bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_local_movies_black_24dp"/>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_film"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_film_info"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/apps_show"
-                android:onClick="itemClick"
-                android:padding="5dp"
-                android:background="@drawable/bg_list_bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_live_tv_black_24dp"/>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_show"/>
-
-                    <TextView
-                        android:textSize="12sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apps_show_info"/>
-                </LinearLayout>
-
+                    android:text="@string/apps_film_add_info"/>
             </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:id="@+id/apps_show_add"
+            android:padding="@dimen/line_margin"
+            android:background="@drawable/bg_list_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+            <ImageView
+                android:layout_width="@dimen/line_icon"
+                android:layout_height="@dimen/line_icon"
+                android:background="@drawable/bg_line_icon"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_add_to_queue_black_24dp"
+                android:contentDescription="@string/apps_show_add"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/line_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/line_title"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:text="@string/apps_show_add"/>
+
+                <TextView
+                    android:textSize="@dimen/line_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_show_add_info"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:minHeight="@dimen/line_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/line_margin"
+                android:layout_marginBottom="@dimen/line_margin"
+                android:layout_marginLeft="@dimen/head_margin_left"
+                android:textSize="@dimen/line_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/head_apps_list"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/apps_film"
+            android:padding="@dimen/line_margin"
+            android:background="@drawable/bg_list_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/line_icon"
+                android:layout_height="@dimen/line_icon"
+                android:background="@drawable/bg_line_icon"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_local_movies_black_24dp"
+                android:contentDescription="@string/apps_film"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/line_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/line_title"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:text="@string/apps_film"/>
+
+                <TextView
+                    android:textSize="@dimen/line_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_film_info"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/apps_show"
+            android:padding="@dimen/line_margin"
+            android:background="@drawable/bg_list_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/line_icon"
+                android:layout_height="@dimen/line_icon"
+                android:background="@drawable/bg_line_icon"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_live_tv_black_24dp"
+                android:contentDescription="@string/apps_show"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/line_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/line_title"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:text="@string/apps_show"/>
+
+                <TextView
+                    android:textSize="@dimen/line_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_show_info"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
