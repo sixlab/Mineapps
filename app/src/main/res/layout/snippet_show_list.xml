@@ -2,7 +2,7 @@
     android:padding="5dp"
     android:orientation="horizontal"
     android:layout_marginLeft="5dp"
-    android:background="@drawable/bg_list_bottom_line"
+    android:background="@drawable/bg_white_list_e2_line"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">

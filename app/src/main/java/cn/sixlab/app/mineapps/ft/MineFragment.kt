@@ -16,6 +16,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +65,11 @@ class MineFragment : Fragment() {
 
         view.text.text = "$authentication@$exp"
 
-        view.button.setOnClickListener {
+        view.user_setting.setOnClickListener {
+            Snackbar.make(view,"开发中", Snackbar.LENGTH_LONG).show()
+        }
+
+        view.logout.setOnClickListener {
             val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
             val editor = preferences.edit()
             editor.remove("Authentication")
