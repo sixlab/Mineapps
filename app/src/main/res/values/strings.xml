@@ -4,6 +4,9 @@
     <string name="title_apps">应用</string>
     <string name="title_mine">我的</string>
 
+    <string name="title_activity_scheme">跳转中</string>
+    <string name="title_activity_daily_assignment">每日任务</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">登录</string>
@@ -69,6 +72,8 @@
     <string name="head_apps_add">添加记录新数据</string>
     <string name="head_apps_list">查询记录的数据</string>
     <string name="ciname_manage">电影院管理</string>
+    <string name="apps_assignment">今日任务</string>
+    <string name="apps_assignment_info">今日任务工具简介</string>
 
 
 </resources>

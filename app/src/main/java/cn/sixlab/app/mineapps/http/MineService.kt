@@ -69,4 +69,12 @@ interface MineService {
     // 添加剧集
     @POST("movie/show")
     fun addShow(@Body body: RequestBody): Call<Map<Any, Any>>
+
+    // 查询指定日期的任务
+    @GET("assignment/{year}/{month}/{day}")
+    fun assignment(@Path("year") year: String,@Path("month") month: String,@Path("day") day: String): Call<Map<Any, Any>>
+
+    // 更新指定任务状态
+    @PUT("assignment/finish/{assignmentId}/{status}")
+    fun finish(@Path("assignmentId") assignmentId: Int,@Path("status") status: Boolean): Call<Map<Any, Any>>
 }

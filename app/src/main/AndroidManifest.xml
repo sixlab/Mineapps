@@ -64,6 +64,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cn.sixlab.app.mineapps.activity.ShowActivity"/>
         </activity>
+        <activity
+            android:name=".activity.SchemeActivity"
+            android:label="@string/title_activity_scheme"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="mineapps"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.DailyAssignmentActivity"
+            android:label="@string/title_activity_daily_assignment"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

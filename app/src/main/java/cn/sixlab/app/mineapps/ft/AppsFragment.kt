@@ -20,10 +20,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.sixlab.app.mineapps.R
-import cn.sixlab.app.mineapps.activity.FilmActivity
-import cn.sixlab.app.mineapps.activity.FilmInfoActivity
-import cn.sixlab.app.mineapps.activity.ShowActivity
-import cn.sixlab.app.mineapps.activity.ShowInfoActivity
+import cn.sixlab.app.mineapps.activity.*
 import kotlinx.android.synthetic.main.fragment_apps.view.*
 
 /**
@@ -58,10 +55,11 @@ class AppsFragment : Fragment() {
     }
 
     private fun initView(view: View) {
-        view.apps_film_add.setOnClickListener { startActivity(Intent(activity, FilmInfoActivity::class.java)) }
-        view.apps_show_add.setOnClickListener { startActivity(Intent(activity, ShowInfoActivity::class.java)) }
-        view.apps_film.setOnClickListener     { startActivity(Intent(activity, FilmActivity::class.java)) }
-        view.apps_show.setOnClickListener     { startActivity(Intent(activity, ShowActivity::class.java)) }
+        view.apps_film_add.setOnClickListener   { startActivity(Intent(activity, FilmInfoActivity::class.java)) }
+        view.apps_show_add.setOnClickListener   { startActivity(Intent(activity, ShowInfoActivity::class.java)) }
+        view.apps_film.setOnClickListener       { startActivity(Intent(activity, FilmActivity::class.java)) }
+        view.apps_show.setOnClickListener       { startActivity(Intent(activity, ShowActivity::class.java)) }
+        view.apps_assignment.setOnClickListener { startActivity(Intent(activity, DailyAssignmentActivity::class.java)) }
     }
 
     // TO DO: Rename method, update argument and hook method into UI event
