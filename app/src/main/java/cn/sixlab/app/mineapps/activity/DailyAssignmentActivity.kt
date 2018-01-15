@@ -35,12 +35,12 @@ class DailyAssignmentActivity : AppCompatActivity() {
             DatePickerDialog(this@DailyAssignmentActivity, { _, selectYear, monthOfYear, dayOfMonth ->
                 if(year!!.toInt() != selectYear || month!!.toInt() != monthOfYear || day!!.toInt() != dayOfMonth){
                     year = selectYear.toString()
-                    month = monthOfYear.toString()
+                    month = (monthOfYear+1).toString()
                     day = dayOfMonth.toString()
 
                     initView()
                 }
-            }, year!!.toInt(), month!!.toInt(), day!!.toInt()).show()
+            }, year!!.toInt(), month!!.toInt()-1, day!!.toInt()).show()
         }
 
         initView()
