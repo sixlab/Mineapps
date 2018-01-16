@@ -3,7 +3,6 @@ package cn.sixlab.app.mineapps.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils
 import cn.sixlab.app.mineapps.R
 import kotlinx.android.synthetic.main.activity_scheme.*
 
@@ -22,9 +21,9 @@ class SchemeActivity : AppCompatActivity() {
         val path = uri.path
 
         when (path){
-            "assignment" -> {
+            "/assignment" -> {
                 val year = uri.getQueryParameter("year")
-                val month = uri.getQueryParameter("key")
+                val month = uri.getQueryParameter("month")
                 val day = uri.getQueryParameter("day")
 
                 var intent = Intent(this, DailyAssignmentActivity::class.java)
