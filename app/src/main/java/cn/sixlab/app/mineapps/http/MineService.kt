@@ -30,6 +30,11 @@ interface MineService {
     @POST("login")
     fun login(@Body body: RequestBody): Call<Map<Any, Any>>
 
+    // 刷新登录
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    @GET("login/refresh")
+    fun refresh(): Call<Map<Any, Any>>
+
     // 添加电影
     @POST("movie/film")
     fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>

@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import cn.sixlab.app.mineapps.LoginActivity
 import cn.sixlab.app.mineapps.R
+import cn.sixlab.app.mineapps.util.Token
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 
 /**
@@ -60,10 +61,9 @@ class MineFragment : Fragment() {
     private fun initView(view: View) {
 
         val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
-        val authentication = preferences.getString("Authentication", null)
-        val exp = preferences.getLong("AuthenticationExp", 0)
+        val authentication = Token.token(preferences)
 
-        view.text.text = "$authentication@$exp"
+        view.text.text = "$authentication"
 
         view.user_setting.setOnClickListener {
             Snackbar.make(view,"开发中", Snackbar.LENGTH_LONG).show()
@@ -71,10 +71,7 @@ class MineFragment : Fragment() {
 
         view.logout.setOnClickListener {
             val preferences = activity.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-            val editor = preferences.edit()
-            editor.remove("Authentication")
-            editor.remove("AuthenticationExp")
-            editor.commit()
+            Token.remove(preferences)
 
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)

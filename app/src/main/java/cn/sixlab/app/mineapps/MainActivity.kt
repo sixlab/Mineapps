@@ -13,21 +13,21 @@ package cn.sixlab.app.mineapps
 
 import android.app.Fragment
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
-import cn.sixlab.app.mineapps.activity.FilmActivity
-import cn.sixlab.app.mineapps.activity.FilmInfoActivity
-import cn.sixlab.app.mineapps.activity.ShowActivity
-import cn.sixlab.app.mineapps.activity.ShowInfoActivity
 import cn.sixlab.app.mineapps.ft.AppsFragment
 import cn.sixlab.app.mineapps.ft.HomeFragment
 import cn.sixlab.app.mineapps.ft.MineFragment
+import cn.sixlab.app.mineapps.util.HttpUtil
+import cn.sixlab.app.mineapps.util.ToastMsg
+import cn.sixlab.app.mineapps.util.Token
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity(),FragmentListener {
@@ -49,6 +49,29 @@ class MainActivity : AppCompatActivity(),FragmentListener {
         //BottomNavigationViewHelper.formatDate(navigation)
         initView(navigation.menu.getItem(1))
         navigation.selectedItemId = navigation.menu.getItem(1).itemId
+
+        val login = intent.getBooleanExtra("login", false)
+        if(!login){
+            refreshToken()
+        }
+    }
+
+    private fun refreshToken() {
+        val route = HttpUtil.buildRoute(this)
+        val call = route.refresh()
+
+        call.enqueue(object : Callback<Map<Any, Any>> {
+            override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
+                ToastMsg.show(this@MainActivity,"刷新成功")
+                val data = response!!.body()!!["data"] as Map<Any,Any>
+                val preferences = getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE)
+                Token.refresh(preferences, data)
+            }
+
+            override fun onFailure(call: Call<Map<Any, Any>>?, t: Throwable?) {
+                ToastMsg.show(this@MainActivity,t)
+            }
+        })
     }
 
     var context: Context? = null

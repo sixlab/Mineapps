@@ -75,5 +75,10 @@
     <string name="apps_assignment">今日任务</string>
     <string name="apps_assignment_info">今日任务工具简介</string>
 
+    <string-array name="showStatus">
+        <item>收看</item>
+        <item>已停</item>
+        <item>全部</item>
+    </string-array>
 
 </resources>

@@ -18,14 +18,19 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.SearchView
 import cn.sixlab.app.mineapps.R
+import cn.sixlab.app.mineapps.util.DataUtil
 import cn.sixlab.app.mineapps.util.HttpUtil
 import cn.sixlab.app.mineapps.util.MineCallback
 import cn.sixlab.app.mineapps.util.ToastMsg
 import kotlinx.android.synthetic.main.activity_show.*
 import kotlinx.android.synthetic.main.content_show.*
+import kotlinx.android.synthetic.main.snippet_dialog_input.view.*
 import kotlinx.android.synthetic.main.snippet_show_list.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,8 +40,9 @@ import java.util.*
 
 class ShowActivity : AppCompatActivity() {
 
+    var keyword: String = ""
     var status: String = "20"
-    var data: java.util.ArrayList<Any>? = null
+    var data: ArrayList<Any>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +56,10 @@ class ShowActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val list = ArrayList<String>()
-        list.add("收看")
-        list.add("已停")
-        list.add("全部")
-
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
-        search_dropdown.adapter = adapter
         search_dropdown.setSelection(0)
+
+        search_dropdown.adapter = ArrayAdapter.createFromResource(this, R.array.showStatus,
+                R.layout.support_simple_spinner_dropdown_item)
 
         search_dropdown.onItemSelectedListener = object : OnItemSelectedListener {
             // parent： 为控件Spinner
@@ -73,7 +75,7 @@ class ShowActivity : AppCompatActivity() {
                     2 -> status = ""
                 }
 
-                searchShow(null)
+                searchShow()
             }
 
             //没有选中时的处理
@@ -90,15 +92,16 @@ class ShowActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                searchShow(newText)
+                keyword = newText
+                searchShow()
                 return true
             }
         })
     }
 
-    private fun searchShow(keyword: String?) {
+    private fun searchShow() {
         val route = HttpUtil.buildRoute(this)
-        val call = route.searchShows(keyword ?: "", status)
+        val call = route.searchShows(keyword, status)
 
         call.enqueue(object : Callback<Map<Any, Any>> {
             override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
@@ -171,7 +174,12 @@ class ShowActivity : AppCompatActivity() {
                     }
 
                     view.change_status.setOnClickListener {
-                        updateStatus(showId, viewStatus)
+                        var newStatus = ""
+                        when(viewStatus){
+                            "20" -> newStatus = "30"
+                            "30" -> newStatus = "20"
+                        }
+                        updateStatus(showId, newStatus)
                     }
 
                     show_result_list.addView(view)
@@ -187,6 +195,9 @@ class ShowActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
                     //                    val body = response!!.body()
                     ToastMsg.show(this@ShowActivity,"操作成功")
+                    val item = mapOf<Any, Any>("showSeason" to param.toInt())
+                    DataUtil.updateItem(data, showId, item)
+                    renderView()
                 }
 
                 override fun onFailure(call: Call<Map<Any, Any>>?, t: Throwable?) {
@@ -205,6 +216,9 @@ class ShowActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
                     //                    val body = response!!.body()
                     ToastMsg.show(this@ShowActivity,"操作成功")
+                    val item = mapOf<Any, Any>("showEpisode" to param.toInt())
+                    DataUtil.updateItem(data, showId, item)
+                    renderView()
                 }
 
                 override fun onFailure(call: Call<Map<Any, Any>>?, t: Throwable?) {
@@ -223,6 +237,9 @@ class ShowActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
                     //                    val body = response!!.body()
                     ToastMsg.show(this@ShowActivity,"操作成功")
+                    val item = mapOf<Any, Any>("viewStatus" to param)
+                    DataUtil.updateItem(data, showId, item)
+                    renderView()
                 }
 
                 override fun onFailure(call: Call<Map<Any, Any>>?, t: Throwable?) {
@@ -233,18 +250,31 @@ class ShowActivity : AppCompatActivity() {
     }
 
     private fun promptDialog(title: String, showNumber: Int, callback: MineCallback<String>) {
-        //        val li = LayoutInflater.from(this@ShowActivity)
-        //        val view = li.inflate(R.layout.snippet_dialog_input, null)
+        val li = LayoutInflater.from(this@ShowActivity)
+        val view = li.inflate(R.layout.snippet_dialog_input, null)
 
-        val view = EditText(this)
-        view.setText(showNumber.toString())
-        view.setSelectAllOnFocus(true)
+        val textNumber = view.text_number
+        textNumber.setText(showNumber.toString())
+
+//        val view = EditText(this)
+//        view.setText(showNumber.toString())
+//        view.setSelectAllOnFocus(true)
+
+        view.minus.setOnClickListener {
+            val no = textNumber.text.toString().toInt()-1
+            textNumber.setText(no.toString())
+        }
+
+        view.plus.setOnClickListener {
+            val no = textNumber.text.toString().toInt()+1
+            textNumber.setText(no.toString())
+        }
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setView(view)
         builder.setPositiveButton("确定"){ dialog, which ->
-            callback.run(view.text.toString())
+            callback.run(textNumber.text.toString())
         }
         builder.create().show()
         view.requestFocus()

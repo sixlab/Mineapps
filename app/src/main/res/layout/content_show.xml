@@ -20,7 +20,12 @@
         <Spinner
             android:id="@+id/search_dropdown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:overlapAnchor="false"
+            android:dropDownWidth="@dimen/fab_margin"
+            android:entries="@array/showStatus"
+            >
         </Spinner>
 
         <android.widget.SearchView

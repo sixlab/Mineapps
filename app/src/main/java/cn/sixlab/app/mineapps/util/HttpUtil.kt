@@ -64,7 +64,7 @@ object HttpUtil {
             val original = chain.request()
 
             val preferences = context.getSharedPreferences("cn.sixlab", Context.MODE_PRIVATE);
-            val authentication = preferences.getString("Authentication", null)
+            val authentication = Token.token(preferences)
 
             val request = original.newBuilder()
                     .header("Authorization", authentication)
