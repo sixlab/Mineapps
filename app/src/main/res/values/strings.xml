@@ -47,6 +47,7 @@
     <string name="prompt_director">导演</string>
     <string name="prompt_cinema">电影院</string>
     <string name="prompt_douban_score">豆瓣评分</string>
+    <string name="prompt_douban_key">豆瓣 ID</string>
     <string name="prompt_view_date">观影日期</string>
     <string name="prompt_remark">备注</string>
     <string name="action_submit">提交</string>

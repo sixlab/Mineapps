@@ -20,7 +20,6 @@ import android.widget.LinearLayout
 import android.widget.SearchView
 import cn.sixlab.app.mineapps.R
 import cn.sixlab.app.mineapps.util.HttpUtil
-import cn.sixlab.app.mineapps.util.JsonUtil
 import cn.sixlab.app.mineapps.util.ToastMsg
 import kotlinx.android.synthetic.main.activity_film.*
 import kotlinx.android.synthetic.main.content_film.*
@@ -159,7 +158,7 @@ class FilmActivity : AppCompatActivity() {
                     var item = it
                     view.setOnClickListener {
                         var intent = Intent(this, FilmInfoActivity::class.java)
-                        intent.putExtra("filmInfo",JsonUtil.toJson(item));
+                        intent.putExtra("filmInfo",item["id"] as Int);
                         startActivity(intent)
                     }
 

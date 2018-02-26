@@ -39,6 +39,10 @@ interface MineService {
     @POST("movie/film")
     fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>
 
+    // 获取电影
+    @GET("movie/film/{id}")
+    fun fetchFilm(@Path("id") id: Int): Call<Map<Any, Any>>
+
     // 修改电影
     @PUT("movie/film/{id}")
     fun modifyFilm(@Body body: RequestBody,@Path("id") id: Int): Call<Map<Any, Any>>

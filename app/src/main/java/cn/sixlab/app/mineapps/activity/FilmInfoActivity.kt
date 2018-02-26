@@ -19,7 +19,6 @@ import android.text.TextUtils
 import android.view.View
 import cn.sixlab.app.mineapps.R
 import cn.sixlab.app.mineapps.util.HttpUtil
-import cn.sixlab.app.mineapps.util.JsonUtil
 import cn.sixlab.app.mineapps.util.ToastMsg
 import kotlinx.android.synthetic.main.activity_film_info.*
 import kotlinx.android.synthetic.main.content_film_info.*
@@ -35,21 +34,20 @@ class FilmInfoActivity : AppCompatActivity() {
     var searchText = ""
     var dbList:ArrayList<Map<Any, Any>>? = null
 
-    var oldInfo:Map<Any, Any>? = null
+    var oldId:Int? = null
     var alertDialog: AlertDialog? = null
-    var dbKey: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_film_info)
 
-        val extra = intent.getStringExtra("filmInfo")
-        if(null==extra){
+        val extra = intent.getIntExtra("filmInfo",0)
+        if(0==extra){
             toolbar.setTitle(R.string.apps_film_add)
         }else{
             toolbar.setTitle(R.string.apps_film_modify)
 
-           oldInfo = JsonUtil.toBean(extra, Map::class.java) as Map<Any, Any>
+            oldId = extra
         }
 
         setSupportActionBar(toolbar)
@@ -157,8 +155,8 @@ class FilmInfoActivity : AppCompatActivity() {
                     }
 
                     text_remark.setText(remark)
+                    text_douban_key.setText(subjectId)
 
-                    dbKey = subjectId
                     if(alertDialog!=null){
                         alertDialog!!.hide()
                     }
@@ -172,61 +170,57 @@ class FilmInfoActivity : AppCompatActivity() {
     }
 
     fun initInput(v: View?){
-        var filmName = ""
-        var produceYear = ""
-        var director = ""
-        var cinema = ""
-        var doubanScore = ""
-        var remark = ""
+        if(oldId != null){
+            val route = HttpUtil.buildRoute(this)
+            var call: Call<Map<Any, Any>>
 
-        var date = Date()
-        if(oldInfo != null){
-            if(null!= oldInfo!!["movieName"]){
-                filmName = oldInfo!!["movieName"] as String
-            }
+            call = route.fetchFilm(oldId!!)
 
-            if(null!= oldInfo!!["produceYear"]){
-                produceYear = oldInfo!!["produceYear"] as String
-            }
+            call.enqueue(object : Callback<Map<Any, Any>> {
+                override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
+                    val body = response!!.body()
+                    if(null!=body){
+                        val filmInfo = body!!["data"] as Map<Any, Any>
 
-            if(null!= oldInfo!!["director"]){
-                director = oldInfo!!["director"] as String
-            }
+                        if(null!=filmInfo["movieName"]){
+                            text_film_name.setText(filmInfo["movieName"] as String)
+                        }
+                        if(null!=filmInfo["produceYear"]){
+                            text_produce_year.setText(filmInfo["produceYear"] as String)
+                        }
+                        if(null!=filmInfo["director"]){
+                            text_director.setText(filmInfo["director"] as String)
+                        }
+                        if(null!=filmInfo["remark"]){
+                            text_remark.setText(filmInfo["remark"] as String)
+                        }
+                        if(null!=filmInfo["cinema"]){
+                            text_cinema.setText(filmInfo["cinema"] as String)
+                        }
+                        if(null!=filmInfo["doubanKey"]){
+                            text_douban_key.setText(filmInfo["doubanKey"] as String)
+                        }
+                        if(null!=filmInfo["doubanScore"]){
+                            text_douban_score.setText((filmInfo["doubanScore"] as Double).toString())
+                        }
+                        if(null!=filmInfo["viewDate"]){
+                            val viewDate = filmInfo["viewDate"] as Long
+                            val text = SimpleDateFormat("yyyy-MM-dd").format(viewDate)
+                            text_view_date.setText(text)
+                        }
+                    }
+                }
 
-            if(null!= oldInfo!!["remark"]){
-                remark = oldInfo!!["remark"] as String
-            }
+                override fun onFailure(call: Call<Map<Any, Any>>?, t: Throwable?) {
+                    ToastMsg.show(this@FilmInfoActivity,t)
+                }
+            })
+        }else{
+            var date = Date()
+            val text = SimpleDateFormat("yyyy-MM-dd").format(date)
 
-            if(null!= oldInfo!!["cinema"]){
-                cinema = oldInfo!!["cinema"] as String
-            }
-
-            if(null!= oldInfo!!["doubanScore"]){
-                doubanScore = (oldInfo!!["doubanScore"] as Double).toString()
-            }
-
-            if(null!= oldInfo!!["viewDate"]){
-                date = Date(oldInfo!!["viewDate"] as Long)
-            }
+            text_view_date.setText(text)
         }
-
-        val text = SimpleDateFormat("yyyy-MM-dd").format(date)
-        if(TextUtils.isEmpty(produceYear)){
-            produceYear = text.split("-")[0]
-        }
-
-        text_film_name.setText(filmName)
-
-        text_director.setText(director)
-
-        text_cinema.setText(cinema)
-        text_douban_score.setText(doubanScore)
-
-        text_remark.setText(remark)
-
-        text_produce_year.setText(produceYear)
-        text_view_date.setText(text)
-
     }
 
     fun submitFilm(v: View?){
@@ -277,10 +271,11 @@ class FilmInfoActivity : AppCompatActivity() {
             map.put("remark", remark.toString())
         }
 
-        if(null!=oldInfo){
-            map.put("id", oldInfo!!["id"] as Int)
+        if(null!=oldId){
+            map.put("id", oldId!!)
         }
 
+        val dbKey = text_douban_key.text
         if(null!=dbKey){
             map.put("doubanKey", dbKey!!)
         }
@@ -290,8 +285,8 @@ class FilmInfoActivity : AppCompatActivity() {
         val route = HttpUtil.buildRoute(this)
         var call: Call<Map<Any, Any>>
 
-        if(null!=oldInfo){
-            call = route.modifyFilm(body, oldInfo!!["id"] as Int)
+        if(null!=oldId){
+            call = route.modifyFilm(body, oldId!!)
         }else{
             call = route.addFilm(body)
         }
@@ -310,7 +305,7 @@ class FilmInfoActivity : AppCompatActivity() {
     private fun submitSuccess(response: Response<Map<Any, Any>>?) {
         ToastMsg.show(this@FilmInfoActivity,"操作成功")
 
-        if(null==oldInfo){
+        if(null==oldId){
             val intent = Intent(this, FilmActivity::class.java)
             startActivity(intent)
         }

@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
             android:overlapAnchor="false"
-            android:dropDownWidth="@dimen/fab_margin"
             android:entries="@array/showStatus"
             >
         </Spinner>
