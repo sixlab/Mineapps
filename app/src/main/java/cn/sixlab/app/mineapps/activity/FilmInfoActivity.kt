@@ -277,7 +277,7 @@ class FilmInfoActivity : AppCompatActivity() {
 
         val dbKey = text_douban_key.text
         if(null!=dbKey){
-            map.put("doubanKey", dbKey!!)
+            map.put("doubanKey", dbKey.toString())
         }
 
         val body = HttpUtil.buildData(map)
