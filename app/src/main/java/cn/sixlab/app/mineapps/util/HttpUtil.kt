@@ -22,7 +22,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 object HttpUtil {
-    var mine = "https://sixlab.cn/"
+    var mine = "https://api.sixlab.cn/"
 //    var mine = "http://192.168.1.132:8800/"
     var douban = "https://api.douban.com/"
 
