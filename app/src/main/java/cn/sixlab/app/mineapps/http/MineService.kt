@@ -32,39 +32,39 @@ interface MineService {
 
     // 刷新登录
     @Headers("Content-Type: application/json", "Accept: application/json")
-    @GET("login/refresh")
+    @GET("auth/login/refresh")
     fun refresh(): Call<Map<Any, Any>>
 
     // 添加电影
-    @POST("movie/film")
+    @POST("auth/movie/film")
     fun addFilm(@Body body: RequestBody): Call<Map<Any, Any>>
 
     // 获取电影
-    @GET("movie/film/{id}")
+    @GET("auth/movie/film/{id}")
     fun fetchFilm(@Path("id") id: Int): Call<Map<Any, Any>>
 
     // 修改电影
-    @PUT("movie/film/{id}")
+    @PUT("auth/movie/film/{id}")
     fun modifyFilm(@Body body: RequestBody,@Path("id") id: Int): Call<Map<Any, Any>>
 
     // 最近的电影
-    @GET("movie/film/recent/{num}")
+    @GET("auth/movie/film/recent/{num}")
     fun recentFilms(@Path("num") num: Int): Call<Map<Any, Any>>
 
     // 搜索电影
-    @GET("movie/film")
+    @GET("auth/movie/film")
     fun searchFilms(@Query("keyword") keyword: String): Call<Map<Any, Any>>
 
     // 搜索未索引电影
-    @GET("movie/film/db")
+    @GET("auth/movie/film/db")
     fun searchDb(): Call<Map<Any, Any>>
 
     // 搜索剧集
-    @GET("movie/show")
+    @GET("auth/movie/show")
     fun searchShows(@Query("keyword") keyword: String,@Query("showStatus") showStatus: String): Call<Map<Any, Any>>
 
     // 修改剧集-season
-    @PUT("movie/show/{id}/season/{season}")
+    @PUT("auth/movie/show/{id}/season/{season}")
     fun updateSeason(@Path("id") id: Int,@Path("season") season: Int): Call<Map<Any, Any>>
 
     // 修改剧集-episode
@@ -72,18 +72,18 @@ interface MineService {
     fun updateEpisode(@Path("id") id: Int,@Path("episode") episode: Int): Call<Map<Any, Any>>
 
     // 修改剧集-status
-    @PUT("movie/show/{id}/viewStatus/{status}")
+    @PUT("auth/movie/show/{id}/viewStatus/{status}")
     fun updateStatus(@Path("id") id: Int,@Path("status") status: String): Call<Map<Any, Any>>
 
     // 添加剧集
-    @POST("movie/show")
+    @POST("auth/movie/show")
     fun addShow(@Body body: RequestBody): Call<Map<Any, Any>>
 
     // 查询指定日期的任务
-    @GET("assignment/{year}/{month}/{day}")
+    @GET("auth/assignment/{year}/{month}/{day}")
     fun assignment(@Path("year") year: String,@Path("month") month: String,@Path("day") day: String): Call<Map<Any, Any>>
 
     // 更新指定任务状态
-    @PUT("assignment/finish/{assignmentId}/{status}")
+    @PUT("auth/assignment/finish/{assignmentId}/{status}")
     fun finish(@Path("assignmentId") assignmentId: Int,@Path("status") status: Boolean): Call<Map<Any, Any>>
 }
