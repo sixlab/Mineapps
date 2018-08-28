@@ -68,7 +68,7 @@ interface MineService {
     fun updateSeason(@Path("id") id: Int,@Path("season") season: Int): Call<Map<Any, Any>>
 
     // 修改剧集-episode
-    @PUT("movie/show/{id}/episode/{episode}")
+    @PUT("auth/movie/show/{id}/episode/{episode}")
     fun updateEpisode(@Path("id") id: Int,@Path("episode") episode: Int): Call<Map<Any, Any>>
 
     // 修改剧集-status
