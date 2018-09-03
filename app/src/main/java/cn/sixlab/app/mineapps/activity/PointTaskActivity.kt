@@ -3,6 +3,7 @@ package cn.sixlab.app.mineapps.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import cn.sixlab.app.mineapps.R
@@ -70,6 +71,7 @@ class PointTaskActivity : AppCompatActivity() {
         call.enqueue(object : Callback<Map<Any, Any>> {
             override fun onResponse(call: Call<Map<Any, Any>>?, response: Response<Map<Any, Any>>?) {
                 val body = response!!.body()
+                Log.d("sixlab",body.toString())
                 data = body!!["data"] as ArrayList<Any>
 
                 renderView()
@@ -82,7 +84,7 @@ class PointTaskActivity : AppCompatActivity() {
     }
 
     private fun renderView() {
-        assignment_list.removeAllViews()
+        task_list.removeAllViews()
 
         val inflater = LayoutInflater.from(this@PointTaskActivity)
         var count = 0
@@ -95,7 +97,7 @@ class PointTaskActivity : AppCompatActivity() {
                             .forEach {
                                 count++
 
-                                val view = inflater.inflate(R.layout.snippet_assignment, null) as LinearLayout
+                                val view = inflater.inflate(R.layout.snippet_task, null) as LinearLayout
 
                                 val nameView = view.name_view
                                 val statusView = view.status_view
@@ -111,7 +113,7 @@ class PointTaskActivity : AppCompatActivity() {
 //                                    changeStatus(id, isChecked)
 //                                })
 
-                                assignment_list.addView(view)
+                                task_list.addView(view)
                             }
                 }
     }

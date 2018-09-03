@@ -92,4 +92,20 @@ interface MineService {
     @POST("auth/point/today")
     fun todayPoint(): Call<Map<Any, Any>>
 
+    // 完成
+    @POST("auth/point/exchange")
+    fun exchange(@Query("point") point: Int,@Query("name") name: String): Call<Map<Any, Any>>
+
+    // +
+    @POST("auth/point/task/add")
+    fun taskAdd(@Body body: RequestBody): Call<Map<Any, Any>>
+
+    // 改
+    @POST("auth/point/task/modify")
+    fun taskModify(@Body body: RequestBody): Call<Map<Any, Any>>
+
+    // 完成
+    @POST("auth/point/task/finish")
+    fun taskFinish(@Query("taskId") taskId: Int): Call<Map<Any, Any>>
+
 }

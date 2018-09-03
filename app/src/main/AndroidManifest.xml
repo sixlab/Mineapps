@@ -82,6 +82,11 @@
             android:label="@string/title_activity_daily_assignment"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".activity.PointTaskActivity"
+            android:label="@string/title_activity_point_task"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
