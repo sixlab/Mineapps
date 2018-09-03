@@ -123,7 +123,7 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/line_margin"
         android:layout_marginBottom="@dimen/line_margin"
-        android:layout_marginLeft="@dimen/head_margin_left"
+        android:layout_marginLeft="@dimen/line_head_margin_left"
         android:textSize="@dimen/line_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
