@@ -6,13 +6,15 @@
     <dimen name="fab_margin_2">48dp</dimen>
 
     <dimen name="line_margin">10dp</dimen>
-    <dimen name="head_margin_left">20dp</dimen>
     <dimen name="line_icon">49dp</dimen>
     <dimen name="line_icon_mine">27dp</dimen>
 
     <dimen name="list_index">24sp</dimen>
     <dimen name="line_header">20sp</dimen>
-    <dimen name="line_head">16sp</dimen>
     <dimen name="line_title">15sp</dimen>
     <dimen name="line_intro">13sp</dimen>
+
+    <dimen name="line_head">12sp</dimen>
+    <dimen name="line_head_margin">5dp</dimen>
+    <dimen name="line_head_margin_left">10dp</dimen>
 </resources>

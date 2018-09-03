@@ -75,6 +75,8 @@
     <string name="ciname_manage">电影院管理</string>
     <string name="apps_assignment">今日任务</string>
     <string name="apps_assignment_info">今日任务工具简介</string>
+    <string name="apps_task">积分任务</string>
+    <string name="apps_task_info">积分与任务</string>
 
     <string-array name="showStatus">
         <item>收看</item>

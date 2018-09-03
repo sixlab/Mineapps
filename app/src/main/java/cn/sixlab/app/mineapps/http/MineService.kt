@@ -86,4 +86,10 @@ interface MineService {
     // 更新指定任务状态
     @PUT("auth/assignment/finish/{assignmentId}/{status}")
     fun finish(@Path("assignmentId") assignmentId: Int,@Path("status") status: Boolean): Call<Map<Any, Any>>
+
+
+    // 查询指定日期的任务
+    @POST("auth/point/today")
+    fun todayPoint(): Call<Map<Any, Any>>
+
 }

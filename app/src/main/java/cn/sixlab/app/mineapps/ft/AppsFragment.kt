@@ -60,6 +60,7 @@ class AppsFragment : Fragment() {
         view.apps_film.setOnClickListener       { startActivity(Intent(activity, FilmActivity::class.java)) }
         view.apps_show.setOnClickListener       { startActivity(Intent(activity, ShowActivity::class.java)) }
         view.apps_assignment.setOnClickListener { startActivity(Intent(activity, DailyAssignmentActivity::class.java)) }
+        view.apps_assignment.setOnClickListener { startActivity(Intent(activity, PointTaskActivity::class.java)) }
     }
 
     // TO DO: Rename method, update argument and hook method into UI event

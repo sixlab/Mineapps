@@ -11,10 +11,9 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/line_margin"
-            android:layout_marginBottom="@dimen/line_margin"
-            android:layout_marginLeft="@dimen/head_margin_left"
+            android:layout_marginTop="@dimen/line_head_margin"
+            android:layout_marginBottom="@dimen/line_head_margin"
+            android:layout_marginLeft="@dimen/line_head_margin_left"
             android:textSize="@dimen/line_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,10 +96,9 @@
         </LinearLayout>
 
         <TextView
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/line_margin"
-            android:layout_marginBottom="@dimen/line_margin"
-            android:layout_marginLeft="@dimen/head_margin_left"
+            android:layout_marginTop="@dimen/line_head_margin"
+            android:layout_marginBottom="@dimen/line_head_margin"
+            android:layout_marginLeft="@dimen/line_head_margin_left"
             android:textSize="@dimen/line_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +193,7 @@
                 android:background="@drawable/bg_apps_btn"
                 android:tint="@color/colorWhite"
                 android:src="@drawable/ic_assignment_turned_in_black_24dp"
-                android:contentDescription="@string/apps_show"/>
+                android:contentDescription="@string/apps_assignment"/>
 
             <LinearLayout
                 android:layout_marginLeft="@dimen/line_margin"
@@ -216,6 +214,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/apps_assignment_info"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/apps_task"
+            android:padding="@dimen/line_margin"
+            android:background="@drawable/bg_white_list_e2_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/line_icon"
+                android:layout_height="@dimen/line_icon"
+                android:background="@drawable/bg_apps_btn"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_assignment_turned_in_black_24dp"
+                android:contentDescription="@string/apps_assignment"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/line_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/line_title"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:text="@string/apps_task"/>
+
+                <TextView
+                    android:textSize="@dimen/line_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_task_info"/>
             </LinearLayout>
 
         </LinearLayout>

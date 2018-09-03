@@ -1,0 +1,28 @@
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/bg_white_list_e2_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/line_margin"
+    android:paddingEnd="@dimen/line_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/name_view"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sample"/>
+
+    <Switch
+        android:id="@+id/status_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        tools:checked="false"/>
+
+</LinearLayout>
